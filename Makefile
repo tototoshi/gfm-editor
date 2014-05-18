@@ -8,3 +8,5 @@ build_asset:
 	grunt less
 run:
 	nodemon --exec "python main.py"
+
+.PHONY: init build_asset run
