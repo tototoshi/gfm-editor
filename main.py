@@ -29,6 +29,22 @@ def remove_script_tag(html):
 def list_notes():
     return g.db.execute('select * from note').fetchall()
 
+def find_note(note_id):
+    q = text('SELECT * FROM note WHERE id = :note_id')
+    return g.db.execute(q, note_id=note_id).fetchone()
+
+def create_note(title, raw):
+    q = text('INSERT INTO note (title, raw) VALUES (:title, :raw) RETURNING *')
+    return g.db.execute(q, title=title, raw=raw).fetchone()
+
+def update_note(note_id, title, raw):
+    q = text("UPDATE note set title = :title, raw = :raw WHERE id = :note_id")
+    g.db.execute(q, title=title, raw=raw, note_id=note_id)
+
+def delete_note(note_id):
+    q = text('DELETE FROM note WHERE id = :note_id')
+    g.db.execute(q, note_id=note_id)
+
 @app.before_request
 def connect_db():
     g.db = create_engine('postgresql://localhost/gfmeditor')
@@ -46,8 +62,7 @@ def api_list_notes():
 
 @app.route('/api/note/<int:note_id>')
 def get_note_by_id(note_id):
-    q = text('SELECT * FROM note WHERE id = :note_id')
-    row = g.db.execute(q, note_id=note_id).fetchone()
+    row = find_note(note_id)
     return jsonify(row)
 
 @app.route('/api/render', methods=['POST'])
@@ -59,8 +74,7 @@ def render():
 
 @app.route('/api/note/<int:note_id>', methods=['DELETE'])
 def api_delete(note_id):
-    q = text('DELETE FROM note WHERE id = :note_id')
-    g.db.execute(q, note_id=note_id)
+    delete_note(note_id)
     return jsonify({'id': note_id})
 
 @app.route('/api/note', methods=['POST'])
@@ -69,8 +83,7 @@ def api_create():
     title = request.json.get('title').strip()
     if title == '':
         return '', 400
-    q = text('INSERT INTO note (title, raw) VALUES (:title, :raw) RETURNING *')
-    row = g.db.execute(q, title=title, raw=raw).fetchone()
+    row = create_note(title, raw)
     return jsonify(row)
 
 @app.route('/api/note/<int:note_id>', methods=['PUT'])
@@ -80,10 +93,7 @@ def save(note_id):
     title = request.json.get('title').strip()
     if title == '':
         return ''
-    note_id = int(note_id)
-    q = text("""UPDATE note set title = :title,
-        raw = :raw WHERE id = :note_id""")
-    g.db.execute(q, title=title, raw=raw, note_id=note_id)
+    update_note(int(note_id), title, raw)
     return jsonify({'id': note_id, 'title': title, 'raw': raw})
 
 
