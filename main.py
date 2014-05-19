@@ -37,15 +37,6 @@ def connect_db():
 def index():
     return render_template('index.html', notes=list_notes())
 
-@app.route('/<int:note_id>')
-def view(note_id):
-    note_id = int(note_id)
-    q = text('SELECT * FROM note WHERE id = :note_id')
-    row = g.db.execute(q, note_id=note_id).fetchone()
-    if row is None:
-        return redirect(url_for('index'))
-    return render_template('view.html', note_id=note_id, raw=row['raw'], notes=list_notes())
-
 @app.route('/api/notes')
 def api_list_notes():
     notes = []
