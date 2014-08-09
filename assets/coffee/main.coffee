@@ -134,8 +134,8 @@ App.AppView = Backbone.View.extend
         this.render()
     render: ->
         height = this.$el.height()
-        $('#editor').css { height: height - 150 }
-        $('#view').css { height: height - 150 }
+        $('#editor').css { height: height - 100 }
+        $('#view').css { height: height - 100 }
         return this
     events:
         "resize": "render"

@@ -18,7 +18,6 @@ import json
 
 app = Flask(__name__)
 
-
 def remove_script_tag(html):
     soup = BeautifulSoup(html)
     to_extract = soup.findAll('script')
