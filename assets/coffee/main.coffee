@@ -56,12 +56,13 @@ App.DeleteButtonView = Backbone.View.extend
             this.$el.html('<input type="button" id="delete" value="delete" class="btn-danger">')
         return this
     delete: ->
-        this.model.destroy
-            success: (model, response) =>
-                App.mediator.trigger('notify-deleted')
-                this.model.clear()
-            error: (model, response) ->
-                App.mediator.trigger('notify-error')
+        if window.confirm('Are you sure to delete this note?')
+            this.model.destroy
+                success: (model, response) =>
+                    App.mediator.trigger('notify-deleted')
+                    this.model.clear()
+                error: (model, response) ->
+                    App.mediator.trigger('notify-error')
 
 App.EditorView = Backbone.View.extend
     initialize: ->
