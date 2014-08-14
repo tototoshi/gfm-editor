@@ -9,6 +9,29 @@ App.NoteCollection = Backbone.Collection.extend
     url: '/api/notes'
     model: App.NoteModel
 
+App.IndexView = Backbone.View.extend
+    initialize: ->
+        this.collection = new App.NoteCollection
+        this.listenTo(this.collection, 'sync', this.render)
+        this.collection.fetch()
+    render: ->
+        this.$el.empty()
+        _.each(this.collection.models, (item) =>
+            item = new App.IndexItemView 
+                model: item
+                el: $('<li>')
+            this.$el.append(item.render().el))
+        return this
+   
+App.IndexItemView = Backbone.View.extend
+    render: ->
+        this.$el.val(this.model.id).text(this.model.get('title'))
+        return this
+    select: ->
+        this.$el.addClass('selected')
+    events:
+        "click": "select"
+        
 App.SelectorView = Backbone.View.extend
     initialize: ->
         this.listenTo(this.collection, 'sync', this.render)
@@ -134,6 +157,7 @@ App.AppView = Backbone.View.extend
         this.render()
     render: ->
         height = this.$el.height()
+        $('#index').css { height: height - 100 }
         $('#editor').css { height: height - 100 }
         $('#view').css { height: height - 100 }
         return this
@@ -153,6 +177,11 @@ $ ->
         model: note
         collection: noteCollection
         el: $('textarea')
+
+    indexView = new App.IndexView
+        el: $('#index > ul')
+        model: note
+        collection: noteCollection
 
     selectorView = new App.SelectorView
         el: $('select')

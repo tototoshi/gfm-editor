@@ -7,11 +7,27 @@ body {
     #editor-wrapper {
         height: 100%;
 
+        #index {
+            border: 1px rgb(225, 225, 225) solid;
+            background-color: rgb(250, 250, 250);
+            ul {
+                padding: 0px;
+                li {
+                    border-bottom: 1px rgb(225, 225, 225) solid;
+                    padding: 10px 3px 10px 3px;
+
+                    &.selected {
+                        background: linear-gradient(rgb(96, 170, 229), rgb(66, 137, 212), rgb(43, 113, 199));
+                    }
+                }
+            }
+        }
         #editor {
 
             height: 100%;
 
             textarea {
+                border: 1px rgb(225, 225, 225) solid;
                 padding: 5px;
                 height: 100%;
                 width: 100%;
@@ -19,7 +35,7 @@ body {
         }
 
         #view {
-            border: 1px #999 solid;
+            border: 1px rgb(225, 225, 225) solid;
             overflow: auto;
         }
     }
@@ -29,7 +45,7 @@ body {
     }
 }
 
-.col-xs-6 {
+.col-xs-2, .col-xs-5, .col-xs-12 {
     padding-left: 3px;
     padding-right: 3px;
 }
