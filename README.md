@@ -1,6 +1,6 @@
 # Github Flavored Markdown Editor
 
-![](http://i.gyazo.com/ea6478b5ed506c86dac3af78270b9cfa.png)
+![](http://i.gyazo.com/20e46477743b9afdb4c38da69329d498.png)
 
 
 ## How to setup
