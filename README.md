@@ -1,6 +1,7 @@
 # Github Flavored Markdown Editor
 
-![screenshot.png](screenshot.png)
+![](http://i.gyazo.com/ea6478b5ed506c86dac3af78270b9cfa.png)
+
 
 ## How to setup
 
@@ -16,3 +17,13 @@ $ make init
 $ make build_asset
 $ make run
 ```
+
+## Keybind
+
+|Key|Action|
+|---|---|
+|Esc|Focus on the search box|
+|Enter|Focus on textarea|
+|Delete|Delete a note|
+|↓|Select previous note|
+|↑|Select next note|
