@@ -16,7 +16,9 @@ App.SearchOrNewView = Backbone.View.extend
     render: ->
         return this
     searchOrNew: ->
-        this.model.set('text', this.$el.val())
+        text = this.$el.val()
+        this.model.set('text', text)
+        App.mediator.trigger('search-text-updated', text)
     focus: ->
         this.$el.show()
         this.$el.focus()
@@ -25,7 +27,8 @@ App.SearchOrNewView = Backbone.View.extend
         this.$el.hide()
     events:
         "input": "searchOrNew"
-        "focus": "searchOrNew"
+        "focusin": "searchOrNew"
+        "focusout": "hide"
 
 App.IndexView = Backbone.View.extend
     initialize: (options) ->
@@ -170,13 +173,16 @@ App.EditorView = Backbone.View.extend
         this.listenTo(this.model, 'destroy', this.clear)
         this.listenTo(this.model, 'reset', this.reset)
     focus: ->
-        App.mediator.trigger('hide-search-or-new')
         this.$el.focus()
     clear: ->
         this.$el.val('')
         $('#view').html('')
     reset: ->
         this.$el.empty()
+    newNoteWithSearchText: (text) ->
+        if this.model.isNew()
+            $('#view').html('')
+            this.$el.val(text)
     newNote: ->
         if this.model.id
             this.model.clear()
@@ -212,7 +218,6 @@ App.EditorView = Backbone.View.extend
     events:
         "input": "debounceUpdateNote"
         "click #delete": "delete"
-        "focus": "focus"
 
 App.NotifView = Backbone.View.extend
     notifySaved: ->
@@ -279,6 +284,7 @@ $ ->
     App.mediator.on('select-previous', _.bind(indexView.selectPrevious, indexView))
     App.mediator.on('select-next', _.bind(indexView.selectNext, indexView))
     App.mediator.on('refresh-note', _.bind(editorView.fetchNote, editorView))
+    App.mediator.on('search-text-updated', _.bind(editorView.newNoteWithSearchText, editorView))
     App.mediator.on('new-note', _.bind(editorView.newNote, editorView))
     App.mediator.on('delete-note', _.bind(indexView.deleteCurrentSelected, indexView))
 
