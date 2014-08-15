@@ -25,5 +25,5 @@ $ make run
 |Esc|Focus on the search box|
 |Enter|Focus on textarea|
 |Delete|Delete a note|
-|↓|Select previous note|
-|↑|Select next note|
+|↓|Select next note|
+|↑|Select previous note|
