@@ -44,7 +44,7 @@ App.IndexView = Backbone.View.extend
             firstMatch = null
             _.each @items, (item) =>
                 itemTitle = item.model.get('title')
-                if itemTitle.indexOf(searchText) >= 0
+                if itemTitle.toLowerCase().indexOf(searchText.toLowerCase()) >= 0
                     if firstMatch == null
                         firstMatch = item
                     item.$el.show()
