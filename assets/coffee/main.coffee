@@ -192,17 +192,17 @@ App.EditorView = Backbone.View.extend
         this.model.set('id', id)
         this.model.fetch()
     render: ->
-        isEmpty = (line) ->
-            line.trim().length != 0
-        old_lines = _.filter($('#view').text().split("\n"), isEmpty)
+        isNotEmpty = (line) -> line.trim().length != 0
+        old_lines = _.filter($('#view').text().split("\n"), isNotEmpty)
         this.$el.val(this.model.get('raw'))
         $.post(
             '/api/render'
             { raw: this.$el.val() }
             (data, textStatus, jqXHR) ->
                 $('#view').html(data)
-                lines = _.filter($('#view').text().split("\n"), isEmpty)
-                if old_lines.length != 0 && old_lines[old_lines.length - 1] != lines[lines.length - 1]
+                lines = _.filter($('#view').text().split("\n"), isNotEmpty)
+                same_except_last_line = old_lines.slice(0, old_lines.length - 1).join("\n") == lines.slice(0, old_lines.length - 1).join("\n") 
+                if same_except_last_line and old_lines[old_lines.length - 1] != lines[lines.length - 1]
                     $('#view').animate({ scrollTop: $('#view').get(0).scrollHeight }, 500)
         )
         return this
