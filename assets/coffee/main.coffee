@@ -204,7 +204,6 @@ App.EditorView = Backbone.View.extend
                 lines = _.filter($('#view').text().split("\n"), isEmpty)
                 if old_lines.length != 0 && old_lines[old_lines.length - 1] != lines[lines.length - 1]
                     $('#view').animate({ scrollTop: $('#view').get(0).scrollHeight }, 500)
-                    #$('#view').get(0).scrollTop = $('#view').get(0).scrollHeight 
         )
         return this
     updateNote: ->
