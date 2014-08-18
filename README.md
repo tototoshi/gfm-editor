@@ -27,5 +27,5 @@ $ make run
 |Delete|Delete a note|
 |↓|Select next note|
 |↑|Select previous note|
-|⌘→|Hide preview|
-|⌘←|Show preview|
+|⌘ + →|Hide preview|
+|⌘ + ←|Show preview|
