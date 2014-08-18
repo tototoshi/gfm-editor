@@ -156,6 +156,10 @@ App.DocumentView = Backbone.View.extend
             App.mediator.trigger('select-previous')
         else if ! $(document.activeElement).is("textarea") && e.keyCode == 40
             App.mediator.trigger('select-next')
+        else if e.keyCode == 37
+            App.mediator.trigger('show-preview')
+        else if e.keyCode == 39
+            App.mediator.trigger('hide-preview')
         else if e.keyCode == 27
             e.preventDefault()
             App.mediator.trigger('focus-search-or-new')       
@@ -179,6 +183,12 @@ App.EditorView = Backbone.View.extend
     clear: ->
         this.$el.val('')
         $('#view').html('')
+    showPreview: ->
+        this.$el.parent('#editor').removeClass('col-xs-10').addClass('col-xs-5')
+        $('#view').show()
+    hidePreview: ->
+        this.$el.parent('#editor').removeClass('col-xs-5').addClass('col-xs-10')
+        $('#view').hide()
     reset: ->
         this.$el.empty()
     newNoteWithSearchText: (text) ->
@@ -294,6 +304,8 @@ $ ->
     App.mediator.on('refresh-note', _.bind(editorView.fetchNote, editorView))
     App.mediator.on('search-text-updated', _.bind(editorView.newNoteWithSearchText, editorView))
     App.mediator.on('new-note', _.bind(editorView.newNote, editorView))
+    App.mediator.on('hide-preview', _.bind(editorView.hidePreview, editorView))
+    App.mediator.on('show-preview', _.bind(editorView.showPreview, editorView))
     App.mediator.on('delete-note', _.bind(indexView.deleteCurrentSelected, indexView))
 
     Backbone.history.start();
