@@ -174,6 +174,8 @@ App.EditorView = Backbone.View.extend
         this.listenTo(this.model, 'reset', this.reset)
     focus: ->
         this.$el.focus()
+        if this.model.isNew() and this.$el.val().trim() != ''
+            this.updateNote()
     clear: ->
         this.$el.val('')
         $('#view').html('')
