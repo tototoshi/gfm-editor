@@ -156,9 +156,11 @@ App.DocumentView = Backbone.View.extend
             App.mediator.trigger('select-previous')
         else if ! $(document.activeElement).is("textarea") && e.keyCode == 40
             App.mediator.trigger('select-next')
-        else if e.keyCode == 37
+        else if e.metaKey && e.keyCode == 37
+            e.preventDefault()
             App.mediator.trigger('show-preview')
-        else if e.keyCode == 39
+        else if e.metaKey && e.keyCode == 39
+            e.preventDefault()
             App.mediator.trigger('hide-preview')
         else if e.keyCode == 27
             e.preventDefault()
