@@ -26,7 +26,7 @@ def remove_script_tag(html):
     return unicode(soup)
 
 def list_notes():
-    return g.db.execute('select * from note').fetchall()
+    return g.db.execute('select * from note ORDER BY id DESC').fetchall()
 
 def find_note(note_id):
     q = text('SELECT * FROM note WHERE id = :note_id')
