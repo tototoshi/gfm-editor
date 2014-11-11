@@ -1,0 +1,38 @@
+@(message: String)
+
+
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <link rel="shortcut icon" href="@routes.Assets.at("images/favicon.ico")">
+    <title>GFM Editor</title>
+    <link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.1.1/css/bootstrap.css">
+    <link rel="stylesheet" href="@routes.Assets.at("stylesheets/main.css")">
+    <link rel="stylesheet" href="@routes.Assets.at("stylesheets/notifit.css")">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.1.1/js/bootstrap.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.6.0/underscore.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/backbone.js/1.1.2/backbone.js"></script>
+    <script type="text/javascript" src="@routes.Assets.at("javascripts/notifit.js")"></script>
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.3/styles/github.min.css">
+    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/8.3/highlight.min.js"></script>
+    <script type="text/javascript" src="@routes.Assets.at("javascripts/main.js")"></script>
+  <body>
+    <div class="container">
+      <div class="row">
+        <input id="search-or-new" class="col-xs-12" type="text" style="display: none;">
+      </div>
+      <div id="editor-wrapper" class="row">
+        <div id="index" class="col-xs-2">
+          <ul>
+          </ul>
+        </div>
+        <div id="editor" class="col-xs-5">
+          <textarea></textarea>
+        </div>
+        <div id="view" class="col-xs-5"></div>
+      </div>
+      </div><!-- /.container -->
+  </body>
+</html>
