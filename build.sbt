@@ -17,6 +17,6 @@ libraryDependencies ++= Seq(
   "org.postgresql" % "postgresql" % "9.3-1102-jdbc4",
   "org.scalikejdbc" %% "scalikejdbc" % "2.1.2",
   "org.scalikejdbc" %% "scalikejdbc-play-plugin" % "2.3.2",
-  "com.github.tototoshi" %% "play-twitterauth" % "0.1.0-SNAPSHOT",
+  "com.github.tototoshi" %% "play-twitterauth" % "0.1.0",
   "com.github.tototoshi" %% "play-json4s-jackson" % "0.3.0"
 )
