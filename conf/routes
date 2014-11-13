@@ -7,5 +7,9 @@ DELETE  /api/note/$id<[0-9]+>       controllers.APIController.delete(id: Long)
 POST    /api/note                   controllers.APIController.create
 POST    /api/render                 controllers.APIController.markdown
 
+GET     /login                      controllers.TwitterAuthController.login
+GET     /logout                     controllers.TwitterAuthController.logout
+GET     /authorize                  controllers.TwitterAuthController.authorize
+
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.at(path="/public", file)
